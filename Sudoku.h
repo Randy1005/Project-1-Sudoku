@@ -13,6 +13,7 @@ class Sudoku
 		void flip(int n);
 		void transform();
 		int board[SIZE][SIZE];
+		int rotate_board[SIZE][SIZE];
 };
 
 
