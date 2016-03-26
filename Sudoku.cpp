@@ -10,6 +10,7 @@ Sudoku::Sudoku(){
 }
 
 void Sudoku::giveQuestion(){
+	/*
 	int que[9][9] = {8,0,0,0,0,0,0,0,0,
 					 0,0,3,6,0,0,0,0,0,
 					 0,7,0,0,9,0,2,0,0,
@@ -19,12 +20,13 @@ void Sudoku::giveQuestion(){
 					 0,0,1,0,0,0,0,6,8,
 					 0,0,8,5,0,0,0,1,0,
 					 0,9,0,0,0,0,4,0,0};
+	*/
 
 	for(int i=0;i<9;i++)
 	{
 		for(int j=0;j<9;j++)
 		{
-			cout<<que[i][j]<<" ";
+			cout<<board[i][j]<<" ";
 		}
 		cout<<endl;
 	}
@@ -37,7 +39,7 @@ void Sudoku::readIn()
 			cin>>board[i][j];		
 }
 
-bool Sudoku::Try()
+bool Sudoku::Try(int board[SIZE][SIZE])
 {
 	int row,col;
 	//If there is no unassigned location,we're finished
@@ -108,8 +110,21 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 
 void Sudoku::solve()
 {
-	
-
+	if(Try(board)==true)
+	{
+		cout<<"1"<<endl;
+		for(int i=0;i<SIZE;i++)
+		{
+			for(int j=0;j<SIZE;j++)
+				cout<<board[i][j]<<" ";
+			cout<<endl;	
+		}
+	}
+	else
+	{
+		cout<<"0"<<endl;
+		exit(1);
+	}
 }
 
 void Sudoku::changeNum(int a,int b)

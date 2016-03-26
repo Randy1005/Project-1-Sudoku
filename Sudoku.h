@@ -14,8 +14,8 @@ class Sudoku
 		void rotate(int n);
 		void flip(int n);
 		void transform();
-		bool Try();
-		bool findUnassigned(int board[SIZE][SIZE],int row,int col,int num);
+		bool Try(int board[SIZE][SIZE]);
+		bool findUnassigned(int board[SIZE][SIZE],int &row,int &col);
 		bool usedInRow(int board[SIZE][SIZE],int row,int num);
 		bool usedInCol(int board[SIZE][SIZE],int col,int num);
 		bool usedInCell(int board[SIZE][SIZE],int cellStartRow,int cellStartCol,int num);
