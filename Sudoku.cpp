@@ -37,9 +37,79 @@ void Sudoku::readIn()
 			cin>>board[i][j];		
 }
 
+bool Sudoku::Try()
+{
+	int row,col;
+	//If there is no unassigned location,we're finished
+	if(!findUnassigned(board,row,col))
+		return true;
+	//1~9
+	for(int num=1;num<9;num++)
+	{	
+		//if no conflict with Sudoku rule
+		if(isLegal(board,row,col,num))
+		{
+			//We try it!!
+			board[row][col] = num;
+			//return,hopefully success
+			if(Try(board))
+				return true;
+			//if fail,start over
+			board[row][col] = UNASSIGNED;
+		}
+	}
+	return false;//this starts "backtracking"
+	
+}
+
+/* search the board for a space that is unassigned, if found,then the space will be set "unassigned",and true is returned. Ifunassigned not foound, false is returned*/
+bool Sudoku::findUnassigned(int board[SIZE][SIZE],int &row,int&col)
+{
+	for(row=0;row<SIZE;row++)
+		for(col=0;col<SIZE;col++)
+			if(board[row][col]==UNASSIGNED)
+				return true;
+	return false;
+}
+
+/*returns boolean whether any "assigned" space within each row matches the given number*/
+bool Sudoku::usedInRow(int board[SIZE][SIZE],int row,int num)
+{
+	for(int col=0;col<SIZE;col++)
+		if(board[row][col]==num)
+			return true;
+	return false;
+}
+
+/*returns boolean whether any "assigned" space within each column matches the given number*/
+bool Sudoku::usedInCol(int board[SIZE][SIZE],int col,int num)
+{
+	for(int row=0;row<SIZE;row++)
+		if(board[row][col]==num)
+			return true;
+	return false;
+}
+
+/*returns boolean whether any "assigned" space within each cell matches the given number*/
+bool Sudoku::usedInCell(int board[SIZE][SIZE],int cellStartRow,int cellStartCol,int num)
+{
+	for(int row=0;row<(SIZE/3);row++)
+		for(int col=0;col<(SIZE/3);col++)
+			if(board[row+cellStartRow][col+cellStartCol]==num)
+				return true;
+	return false;
+}
+/*returns boolean to check if we can fill this number in the space*/
+bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
+{
+	/*check if "num" is already placed in same row,col,or cell(just call function!!)*/
+	if(!usedInRow(board,row,num)&&!usedInCol(board,col,num)&&!usedInCell(board,row-row%3,col-col%3,num));
+}
+
 void Sudoku::solve()
 {
 	
+
 }
 
 void Sudoku::changeNum(int a,int b)
@@ -381,3 +451,5 @@ void Sudoku::transform()
 {
 
 }
+
+
