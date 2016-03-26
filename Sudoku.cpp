@@ -42,7 +42,8 @@ void Sudoku::solve()
 	
 }
 
-void Sudoku::changeNum(int a,int b) //function may cause boardbecome unsolvable
+void Sudoku::changeNum(int a,int b)
+//seems to be useless and may cause board to become unsolvable
 {
 	int xA,xB,yA,yB;
 	int i,j;
@@ -359,7 +360,21 @@ void Sudoku::rotate(int n)	//only rotate once no matter parameter ??????
 
 void Sudoku::flip(int n)
 {
-		
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
+		{
+			if(n==0)
+				flip_board[i][j] = board[8-i][j];
+			else
+				flip_board[i][j] = board[i][8-j];
+				
+		}
+	}
+	for(int i=0;i<9;i++)
+		for(int j=0;j<9;j++)
+			board[i][j] = flip_board[i][j];
+
 }
 
 void Sudoku::transform()
