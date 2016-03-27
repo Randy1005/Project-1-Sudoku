@@ -10,6 +10,7 @@ Sudoku::Sudoku(){
 }
 
 void Sudoku::giveQuestion(){
+	/*
 	int que[9][9] = {8,0,0,0,0,0,0,0,0,
 					 0,0,3,6,0,0,0,0,0,
 					 0,7,0,0,9,0,2,0,0,
@@ -19,6 +20,7 @@ void Sudoku::giveQuestion(){
 					 0,0,1,0,0,0,0,6,8,
 					 0,0,8,5,0,0,0,1,0,
 					 0,9,0,0,0,0,4,0,0};
+	*/
 
 	for(int i=0;i<9;i++)
 	{
@@ -44,7 +46,7 @@ bool Sudoku::Try(int board[SIZE][SIZE])
 	if(!findUnassigned(board,row,col))
 		return true;
 	//1~9
-	for(int num=1;num<9;num++)
+	for(int num=1;num<=9;num++)
 	{	
 		//if no conflict with Sudoku rule
 		if(isLegal(board,row,col,num))
@@ -62,7 +64,7 @@ bool Sudoku::Try(int board[SIZE][SIZE])
 	
 }
 
-/* search the board for a space that is unassigned, if found,then the space will be set "unassigned",and true is returned. Ifunassigned not foound, false is returned*/
+/* search the board for a space that is unassigned, if found,then the space will be set "unassigned",and true is returned. Ifunassigned not found, false is returned*/
 bool Sudoku::findUnassigned(int board[SIZE][SIZE],int &row,int&col)
 {
 	for(row=0;row<SIZE;row++)
@@ -103,7 +105,7 @@ bool Sudoku::usedInCell(int board[SIZE][SIZE],int cellStartRow,int cellStartCol,
 bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 {
 	/*check if "num" is already placed in same row,col,or cell(just call function!!)*/
-	if(!usedInRow(board,row,num)&&!usedInCol(board,col,num)&&!usedInCell(board,row-row%3,col-col%3,num));
+	return !usedInRow(board,row,num) && !usedInCol(board,col,num) && !usedInCell(board,row-row%3,col-col%3,num);
 }
 
 void Sudoku::solve()
