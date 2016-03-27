@@ -12,8 +12,10 @@ class Sudoku
 		void changeRow(int a,int b);
 		void changeCol(int a,int b);
 		void rotate(int n);
+		void change();
 		void flip(int n);
 		void transform();
+		void printOut(bool isAns);
 		bool Try(int board[SIZE][SIZE]);
 		bool findUnassigned(int board[SIZE][SIZE],int &row,int &col);
 		bool usedInRow(int board[SIZE][SIZE],int row,int num);

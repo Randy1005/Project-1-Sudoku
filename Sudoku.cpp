@@ -10,7 +10,6 @@ Sudoku::Sudoku(){
 }
 
 void Sudoku::giveQuestion(){
-	/*
 	int que[9][9] = {8,0,0,0,0,0,0,0,0,
 					 0,0,3,6,0,0,0,0,0,
 					 0,7,0,0,9,0,2,0,0,
@@ -20,7 +19,6 @@ void Sudoku::giveQuestion(){
 					 0,0,1,0,0,0,0,6,8,
 					 0,0,8,5,0,0,0,1,0,
 					 0,9,0,0,0,0,4,0,0};
-	*/
 
 	for(int i=0;i<9;i++)
 	{
@@ -130,23 +128,24 @@ void Sudoku::solve()
 void Sudoku::changeNum(int a,int b)
 //seems to be useless and may cause board to become unsolvable
 {
-	int xA,xB,yA,yB;
-	int i,j;
-	while(a!=b && a!=0 && b!=0)
+	int tmp_board[SIZE][SIZE];
+	
+	for(int i=0;i<9;i++)
 	{
-		for(i=0;i<9;i++)
+		for(int j=0;j<9;j++)
+		tmp_board[i][j] = board[i][j];
+	}
+		for(int i=0;i<9;i++)
 		{
-			for(j=0;j<9;j++)
+			for(int j=0;j<9;j++)
 			{
 				if(board[i][j]==a)
-					xA = i; yA = j;
-				if(board[i][j]==b)
-					xB = i; yB = j;
+					board[i][j] = b;
+				if(tmp_board[i][j]==b)
+					board[i][j] = a;
 			}
 		}
-		swap(board[xA][yA],board[xB][yB]);
-		break;	
-	}
+	
 }
 
 void Sudoku::changeRow(int a,int b)
@@ -426,7 +425,7 @@ void Sudoku::changeCol(int a,int b)
 
 void Sudoku::rotate(int n)	//only rotate once no matter parameter ??????
 {
-	while(n--)
+	for(int k=0;k<n;k++)
 	{
 		for(int i=0;i<9;i++)
 		{
@@ -461,10 +460,36 @@ void Sudoku::flip(int n)
 			board[i][j] = flip_board[i][j];
 
 }
+void Sudoku::printOut(bool isAns)
+{
+	if(!isAns)
+	{
+		for(int i=0;i<9;i++)
+		{
+			for(int j=0;j<9;j++)
+			{
+				cout<<board[i][j]<<" ";
+			}
+			cout<<endl;
+		}
+	}
 
+
+}
+void Sudoku::change()
+{
+	srand(time(NULL));
+	changeNum(rand()%9+1,rand()%9+1);
+	changeRow(rand()%3,rand()%3);
+	changeCol(rand()%3,rand()%3);
+	rotate(rand()%101);
+	flip(rand()%2);
+}
 void Sudoku::transform()
 {
-
+	readIn();
+	change();
+	printOut(false);	
 }
 
 
