@@ -9,19 +9,8 @@ Sudoku::Sudoku(){
 
 }
 
-void Sudoku::giveQuestion(){
-	/*
-	int que[9][9] = {8,0,0,0,0,0,0,0,0,
-					 0,0,3,6,0,0,0,0,0,
-					 0,7,0,0,9,0,2,0,0,
-					 0,5,0,0,0,7,0,0,0,
-					 0,0,0,0,4,5,7,0,0,
-					 0,0,0,1,0,0,0,3,0,
-					 0,0,1,0,0,0,0,6,8,
-					 0,0,8,5,0,0,0,1,0,
-					 0,9,0,0,0,0,4,0,0};
-	*/
-
+void Sudoku::giveQuestion()
+{
 	for(int i=0;i<9;i++)
 	{
 		for(int j=0;j<9;j++)
@@ -110,20 +99,41 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 
 void Sudoku::solve()
 {
-	if(Try(board)==true)
-	{
-		cout<<"1"<<endl;
-		for(int i=0;i<SIZE;i++)
-		{
-			for(int j=0;j<SIZE;j++)
-				cout<<board[i][j]<<" ";
-			cout<<endl;	
-		}
-	}
-	else
-	{
+	/*for multi-solution checking, since backtracking algorithm returns the same answer whether doing it forward or backward on the basis of one solution, we rotate the board 2 times, and get a new board which has the last element in the previous board as the first element*/
+	rotate(2); //first rotate 2 times to make the last element(8,8)in the board get to the first(0,0)
+	for(int i=0;i<SIZE;i++)
+		for(int j=0;j<SIZE;j++)
+			chk_multi[i][j] = board[i][j];
+	rotate(2); //back to the original board, and then solve it
+	bool isSame; //to return true or false if chk_multi equals board
+	if(Try(board)==false)
 		cout<<"0"<<endl;
-		exit(1);
+	else if(Try(board)==true)//if we have a solution
+	{
+		if(Try(chk_multi)==true)
+		{
+			rotate(2);
+			for(int i=0;i<SIZE;i++)
+			{
+				for(int j=0;j<SIZE;j++)
+				{
+					if(chk_multi[i][j]==board[i][j])
+					{
+						isSame = true; //if same, set to "true"
+					}
+					else
+						isSame = false;
+				}
+			}
+			if(isSame==true) //if same, then unique solution
+			{
+				rotate(2);
+				cout<<"1"<<endl;
+				printOut(false);
+			}
+			else //if not, multiple solutions
+				cout<<"2"<<endl;
+		}
 	}
 }
 
@@ -425,7 +435,7 @@ void Sudoku::changeCol(int a,int b)
 
 }
 
-void Sudoku::rotate(int n)	//only rotate once no matter parameter ??????
+void Sudoku::rotate(int n)
 {
 	for(int k=0;k<n;k++)
 	{
@@ -433,15 +443,41 @@ void Sudoku::rotate(int n)	//only rotate once no matter parameter ??????
 		{
 			for(int j=0;j<9;j++)
 			{	
-				rotate_board[i][j] = board[j][8-i];
+				rotate_board[i][j] = board[j][8-i]; 
 			}
 		}
 
 		for(int i=0;i<9;i++)
+		{
 			for(int j=0;j<9;j++)
+			{
 				board[i][j] = rotate_board[i][j];
+			}
+		}
 	}
 
+}
+
+void Sudoku::rotate_multi(int n)
+{
+	for(int k=0;k<n;k++)
+	{		
+		for(int i=0;i<9;i++)
+		{
+			for(int j=0;j<9;j++)
+			{
+				rotate_board[i][j] = chk_multi[j][8-i];
+			}
+		}
+	}
+
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
+		{
+			chk_multi[i][j] = rotate_board[i][j];
+		}
+	}
 }
 
 void Sudoku::flip(int n)

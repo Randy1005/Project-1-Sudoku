@@ -12,6 +12,7 @@ class Sudoku
 		void changeRow(int a,int b);
 		void changeCol(int a,int b);
 		void rotate(int n);
+		void rotate_multi(int n);
 		void change();
 		void flip(int n);
 		void transform();
@@ -26,6 +27,7 @@ class Sudoku
 		int board[SIZE][SIZE];
 		int rotate_board[SIZE][SIZE];
 		int flip_board[SIZE][SIZE];
+		int chk_multi[SIZE][SIZE];
 };
 
 
