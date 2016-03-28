@@ -65,7 +65,7 @@ bool Sudoku::Try(int board[SIZE][SIZE])
 }
 
 /* search the board for a space that is unassigned, if found,then the space will be set "unassigned",and true is returned. Ifunassigned not found, false is returned*/
-bool Sudoku::findUnassigned(int board[SIZE][SIZE],int &row,int&col)
+bool Sudoku::findUnassigned(int board[SIZE][SIZE],int &row,int &col)
 {
 	for(row=0;row<SIZE;row++)
 		for(col=0;col<SIZE;col++)
