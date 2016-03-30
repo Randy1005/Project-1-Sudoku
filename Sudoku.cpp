@@ -100,42 +100,47 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 
 void Sudoku::solve()
 {
-	/*for multi-solution checking, since backtracking algorithm returns the same answer whether doing it forward or backward on the basis of one solution, we rotate the board 2 times, and get a new board which has the last element in the previous board as the first element*/
-	rotate(2); //first rotate 2 times to make the last element(8,8)in the board get to the first(0,0)
+	bool isSame[SIZE][SIZE];
+	rotate(2);
 	for(int i=0;i<SIZE;i++)
 		for(int j=0;j<SIZE;j++)
 			chk_multi[i][j] = board[i][j];
-	rotate(2); //back to the original board, and then solve it
-	bool isSame; //to return true or false if chk_multi equals board
-	if(Try(board)==false)
-		cout<<"0"<<endl;
-	else if(Try(board)==true)//if we have a solution
+	rotate(2);
+	if(Try(board)==true)
 	{
+		rotate(2);
 		if(Try(chk_multi)==true)
 		{
-			rotate(2);
 			for(int i=0;i<SIZE;i++)
 			{
 				for(int j=0;j<SIZE;j++)
 				{
-					if(chk_multi[i][j]==board[i][j])
-					{
-						isSame = true; //if same, set to "true"
-					}
+					if(chk_multi[i][j]=board[i][j])
+						isSame[i][j] = true;
 					else
-						isSame = false;
+						isSame[i][j] = false;
 				}
 			}
-			if(isSame==true) //if same, then unique solution
-			{
-				rotate(2);
-				cout<<"1"<<endl;
-				printOut(false);
-			}
-			else //if not, multiple solutions
-				cout<<"2"<<endl;
 		}
 	}
+	else
+		cout<<"0"<<endl;
+
+	for(int i=0;i<SIZE;i++)
+	{
+		for(int j=0;j<SIZE;j++)
+		{
+			if(isSame[i][j]==false)
+			{
+				cout<<"2"<<endl;
+				exit(1);
+			}
+		}
+	}
+	cout<<"1"<<endl;
+	rotate(2);
+	printOut(false);
+		
 }
 
 void Sudoku::changeNum(int a,int b)
