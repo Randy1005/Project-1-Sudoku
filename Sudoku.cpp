@@ -161,7 +161,6 @@ void Sudoku::solve()
 }
 
 void Sudoku::changeNum(int a,int b)
-	//seems to be useless and may cause board to become unsolvable
 {
 	int tmp_board[SIZE][SIZE];
 
@@ -194,18 +193,7 @@ void Sudoku::changeRow(int a,int b)
 				{
 					swap(board[3][i],board[0][i]);
 					swap(board[4][i],board[1][i]);
-					swap(board[5][i],board[2][i]);
-					/*
-					   tmp0[i] = board[0][i];
-					   tmp1[i] = board[1][i];
-					   tmp2[i] = board[2][i];
-					   board[0][i] = board[3][i];
-					   board[1][i] = board[4][i];
-					   board[2][i] = board[5][i];
-					   board[3][i] = tmp0[i];
-					   board[4][i] = tmp1[i];
-					   board[5][i] = tmp2[i];
-					 */		
+					swap(board[5][i],board[2][i]);		
 				}
 			}
 			else if(b == 2)
@@ -215,17 +203,6 @@ void Sudoku::changeRow(int a,int b)
 					swap(board[6][i],board[0][i]);
 					swap(board[7][i],board[1][i]);
 					swap(board[8][i],board[2][i]);
-					/*
-					   tmp0[i] = board[0][i];
-					   tmp1[i] = board[1][i];
-					   tmp2[i] = board[2][i];
-					   board[0][i] = board[6][i];
-					   board[1][i] = board[7][i];
-					   board[2][i] = board[8][i];
-					   board[6][i] = tmp0[i];
-					   board[7][i] = tmp1[i];
-					   board[8][i] = tmp2[i];
-					 */		
 				}
 			}
 		}
@@ -236,18 +213,7 @@ void Sudoku::changeRow(int a,int b)
 				{
 					swap(board[0][i],board[3][i]);
 					swap(board[1][i],board[4][i]);
-					swap(board[2][i],board[5][i]);
-					/*
-					   tmp0[i] = board[0][i];
-					   tmp1[i] = board[1][i];
-					   tmp2[i] = board[2][i];
-					   board[0][i] = board[3][i];
-					   board[1][i] = board[4][i];
-					   board[2][i] = board[5][i];
-					   board[3][i] = tmp0[i];
-					   board[4][i] = tmp1[i];
-					   board[5][i] = tmp2[i];
-					 */		
+					swap(board[2][i],board[5][i]);		
 				}
 			}
 			else if(b == 2)
@@ -257,17 +223,6 @@ void Sudoku::changeRow(int a,int b)
 					swap(board[6][i],board[3][i]);
 					swap(board[7][i],board[4][i]);
 					swap(board[8][i],board[5][i]);
-					/*
-					   tmp0[i] = board[3][i];
-					   tmp1[i] = board[4][i];
-					   tmp2[i] = board[5][i];
-					   board[3][i] = board[6][i];
-					   board[4][i] = board[7][i];
-					   board[5][i] = board[8][i];
-					   board[6][i] = tmp0[i];
-					   board[7][i] = tmp1[i];
-					   board[8][i] = tmp2[i];
-					 */		
 				}
 			}
 		}
@@ -280,17 +235,6 @@ void Sudoku::changeRow(int a,int b)
 					swap(board[0][i],board[6][i]);
 					swap(board[1][i],board[7][i]);
 					swap(board[2][i],board[8][i]);
-					/*
-					   tmp0[i] = board[0][i];
-					   tmp1[i] = board[1][i];
-					   tmp2[i] = board[2][i];
-					   board[0][i] = board[6][i];
-					   board[1][i] = board[7][i];
-					   board[2][i] = board[8][i];
-					   board[6][i] = tmp0[i];
-					   board[7][i] = tmp1[i];
-					   board[8][i] = tmp2[i];
-					 */		
 				}
 			}
 			else if(b == 1)
@@ -300,17 +244,6 @@ void Sudoku::changeRow(int a,int b)
 					swap(board[3][i],board[6][i]);
 					swap(board[4][i],board[7][i]);
 					swap(board[5][i],board[8][i]);
-					/*
-					   tmp0[i] = board[3][i];
-					   tmp1[i] = board[4][i];
-					   tmp2[i] = board[5][i];
-					   board[3][i] = board[6][i];
-					   board[4][i] = board[7][i];
-					   board[5][i] = board[8][i];
-					   board[6][i] = tmp0[i];
-					   board[7][i] = tmp1[i];
-					   board[8][i] = tmp2[i];
-					 */		
 				}
 			}
 
@@ -331,17 +264,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][0],board[i][3]);
 					swap(board[i][1],board[i][4]);
 					swap(board[i][2],board[i][5]);
-					/*
-					   tmp0[i] = board[i][0];
-					   tmp1[i] = board[i][1];
-					   tmp2[i] = board[i][2];
-					   board[i][0] = board[i][3];
-					   board[i][1] = board[i][4];
-					   board[i][2] = board[i][5];
-					   board[i][3] = tmp0[i];
-					   board[i][4] = tmp1[i];
-					   board[i][5] = tmp2[i];
-					 */		
 				}
 			}
 			else if(b == 2)
@@ -352,17 +274,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][0],board[i][6]);
 					swap(board[i][1],board[i][7]);
 					swap(board[i][2],board[i][8]);
-					/*
-					   tmp0[i] = board[i][0];
-					   tmp1[i] = board[i][1];
-					   tmp2[i] = board[i][2];
-					   board[i][0] = board[i][6];
-					   board[i][1] = board[i][7];
-					   board[i][2] = board[i][8];
-					   board[i][6] = tmp0[i];
-					   board[i][7] = tmp1[i];
-					   board[i][8] = tmp2[i];
-					 */		
 				}
 			}
 		}
@@ -374,17 +285,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][0],board[i][3]);
 					swap(board[i][1],board[i][4]);
 					swap(board[i][2],board[i][5]);
-					/*
-					   tmp0[i] = board[i][0];
-					   tmp1[i] = board[i][1];
-					   tmp2[i] = board[i][2];
-					   board[i][0] = board[i][3];
-					   board[i][1] = board[i][4];
-					   board[i][2] = board[i][5];
-					   board[i][3] = tmp0[i];
-					   board[i][4] = tmp1[i];
-					   board[i][5] = tmp2[i];
-					 */		
 				}
 			}
 			else if(b == 2)
@@ -394,17 +294,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][6],board[i][3]);
 					swap(board[i][7],board[i][4]);
 					swap(board[i][8],board[i][5]);
-					/*
-					   tmp0[i] = board[i][3];
-					   tmp1[i] = board[i][4];
-					   tmp2[i] = board[i][5];
-					   board[i][3] = board[i][6];
-					   board[i][4] = board[i][7];
-					   board[i][5] = board[i][8];
-					   board[i][6] = tmp0[i];
-					   board[i][7] = tmp1[i];
-					   board[i][8] = tmp2[i];
-					 */		
 				}
 			}
 		}
@@ -417,17 +306,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][0],board[i][6]);
 					swap(board[i][1],board[i][7]);
 					swap(board[i][2],board[i][8]);
-					/*
-					   tmp0[i] = board[i][0];
-					   tmp1[i] = board[i][1];
-					   tmp2[i] = board[i][2];
-					   board[i][0] = board[i][6];
-					   board[i][1] = board[i][7];
-					   board[i][2] = board[i][8];
-					   board[i][6] = tmp0[i];
-					   board[i][7] = tmp1[i];
-					   board[i][8] = tmp2[i];
-					 */		
 				}
 			}
 			else if(b == 1)
@@ -438,17 +316,6 @@ void Sudoku::changeCol(int a,int b)
 					swap(board[i][6],board[i][3]);
 					swap(board[i][7],board[i][4]);
 					swap(board[i][8],board[i][5]);
-					/*
-					   tmp0[i] = board[i][3];
-					   tmp1[i] = board[i][4];
-					   tmp2[i] = board[i][5];
-					   board[i][3] = board[i][6];
-					   board[i][4] = board[i][7];
-					   board[i][5] = board[i][8];
-					   board[i][6] = tmp0[i];
-					   board[i][7] = tmp1[i];
-					   board[i][8] = tmp2[i];
-					 */		
 				}
 			}
 
