@@ -1,6 +1,7 @@
 #include "Sudoku.h"
 #include <iostream>
 #include <cstdlib>
+#include <ctime>
 #include <algorithm>
 using namespace std;
 
@@ -30,23 +31,22 @@ bool Sudoku::Try(int board[SIZE][SIZE])
 	//If there is no unassigned location,we're finished
 	if(!findUnassigned(board,row,col))
 		return true;
-	//1~9
+
 	for(int num=1;num<=9;num++)
-	{	
-		//if no conflict with Sudoku rule
+	{
+		//if no conflict with sudoku rules
 		if(isLegal(board,row,col,num))
 		{
-			//We try it!!
+			//we try it!!
 			board[row][col] = num;
 			//return,hopefully success
 			if(Try(board))
-				return true;
+				return true;			
 			//if fail,start over
 			board[row][col] = UNASSIGNED;
 		}
 	}
 	return false;//this starts "backtracking"
-
 }
 
 bool Sudoku::Try_backward(int chk_board[SIZE][SIZE])
@@ -64,13 +64,13 @@ bool Sudoku::Try_backward(int chk_board[SIZE][SIZE])
 			//We try it!!
 			chk_board[row][col] = num;
 			//return,hopefully success
-			if(Try(chk_board))
+			if(Try_backward(chk_board))
 				return true;
 			//if fail,start over
 			chk_board[row][col] = UNASSIGNED;
 		}
 	}
-	return false;//this starts "backtracking"
+	return false;//this starts backtracking
 }
 
 /* search the board for a space that is unassigned, if found,then the space will be set "unassigned",and true is returned. Ifunassigned not found, false is returned*/
@@ -80,7 +80,6 @@ bool Sudoku::findUnassigned(int board[SIZE][SIZE],int &row,int &col)
 		for(col=0;col<SIZE;col++)
 			if(board[row][col]==UNASSIGNED)
 				return true;
-	return false;
 }
 
 /*returns boolean whether any "assigned" space within each row matches the given number*/
@@ -119,45 +118,59 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 
 void Sudoku::solve()
 {
-	bool isSame[SIZE][SIZE];
+	if(!Try(board))
+	{
+		cout<<"0"<<endl;
+		exit(1);
+	}
 	for(int i=0;i<SIZE;i++)
 		for(int j=0;j<SIZE;j++)
 			chk_board[i][j] = board[i][j];
-	
-	if(Try(board)==true)
+	/*****/
+	//cout<<"chk:(unassigned)"<<endl;
+	//printOut(chk_board);
+	/****/
+	int flag[SIZE][SIZE];
+	/*solve "board" and "chk_board"*/
+	if(Try(board) && Try_backward(chk_board))
 	{
-		if(Try_backward(chk_board)==true)
+		for(int i=0;i<SIZE;i++)
 		{
-			for(int i=0;i<SIZE;i++)
+			for(int j=0;j<SIZE;j++)
 			{
-				for(int j=0;j<9;j++)
-				{
-					if(chk_board[i][j]==board[i][j])
-						isSame[i][j] = true;
-					else
-						isSame[i][j] = false;
-				}
+				/*if the two board is same, set flag to 1*/
+				if(board[i][j]==chk_board[i][j])
+					flag[i][j] = 1;
+				else
+					flag[i][j] = 0;
 			}
-
 		}
 	}
-	else
-		cout<<"0"<<endl;
-
+	/****/
+	//cout<<endl;
+	//cout<<"board:"<<endl;
+	//printOut(board);
+	//cout<<"chk:"<<endl;
+	//printOut(chk_board);
+	//cout<<"flag:"<<endl;
+	//printOut(flag);
+	/****/
+	/*loop check flag value*/
 	for(int i=0;i<SIZE;i++)
 	{
 		for(int j=0;j<SIZE;j++)
 		{
-			if(isSame[i][j]==false)
+			if(flag[i][j]==0)
 			{
 				cout<<"2"<<endl;
 				exit(1);
 			}
 		}
 	}
+	/*if none of the conditons occured above, then unique solution*/
 	cout<<"1"<<endl;
-	printOut();
-		
+	printOut(board);
+			
 }
 
 void Sudoku::changeNum(int a,int b)
@@ -366,16 +379,16 @@ void Sudoku::flip(int n)
 			board[i][j] = flip_board[i][j];
 
 }
-void Sudoku::printOut()
+void Sudoku::printOut(int grid[SIZE][SIZE])
 {
-		for(int i=0;i<9;i++)
+	for(int i=0;i<9;i++)
+	{
+		for(int j=0;j<9;j++)
 		{
-			for(int j=0;j<9;j++)
-			{
-				cout<<board[i][j]<<" ";
-			}
-			cout<<endl;
+			cout<<grid[i][j]<<" ";
 		}
+		cout<<endl;
+	}
 }
 void Sudoku::change()
 {
@@ -390,7 +403,7 @@ void Sudoku::transform()
 {
 	readIn();
 	change();
-	printOut();	
+	printOut(board);	
 }
 
 
