@@ -14,7 +14,7 @@ class Sudoku
 		void change();
 		void flip(int n);
 		void transform();
-		void printOut();
+		void printOut(int grid[SIZE][SIZE]);
 		/*******************/
 		void push(int sp);
 		int pop();
@@ -42,6 +42,7 @@ class Sudoku
 		int rotate_board[SIZE][SIZE];
 		int flip_board[SIZE][SIZE];
 		int chk_board[SIZE][SIZE];
+		int solCount;
 };
 
 
