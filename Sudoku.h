@@ -16,7 +16,7 @@ class Sudoku
 		void transform();
 		void printOut(int grid[SIZE][SIZE]);
 		bool Try(int board[SIZE][SIZE]);
-		bool Try_backward(int chk_board[SIZE][SIZE]);
+		bool Try_backward(int board[SIZE][SIZE]);
 		bool findUnassigned(int board[SIZE][SIZE],int &row,int &col);
 		bool usedInRow(int board[SIZE][SIZE],int row,int num);
 		bool usedInCol(int board[SIZE][SIZE],int col,int num);
@@ -27,7 +27,6 @@ class Sudoku
 		int rotate_board[SIZE][SIZE];
 		int flip_board[SIZE][SIZE];
 		int chk_board[SIZE][SIZE];
-		int solCount;
 };
 
 
