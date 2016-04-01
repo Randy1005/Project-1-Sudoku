@@ -118,11 +118,6 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 
 void Sudoku::solve()
 {
-	if(!Try(board))
-	{
-		cout<<"0"<<endl;
-		exit(1);
-	}
 	for(int i=0;i<SIZE;i++)
 		for(int j=0;j<SIZE;j++)
 			chk_board[i][j] = board[i][j];
@@ -145,6 +140,11 @@ void Sudoku::solve()
 					flag[i][j] = 0;
 			}
 		}
+	}
+	else if(!Try(board))
+	{
+		cout<<"0"<<endl;
+		exit(1);
 	}
 	/****/
 	//cout<<endl;
@@ -170,7 +170,7 @@ void Sudoku::solve()
 	/*if none of the conditons occured above, then unique solution*/
 	cout<<"1"<<endl;
 	printOut(board);
-			
+
 }
 
 void Sudoku::changeNum(int a,int b)
