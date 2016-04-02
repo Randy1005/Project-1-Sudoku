@@ -7,15 +7,20 @@ using namespace std;
 
 void Sudoku::giveQuestion()
 {
+	int ques[9][9] = {8,0,0,0,0,0,0,0,0,
+					   0,0,3,6,0,0,0,0,0,
+					   0,7,0,0,9,0,2,0,0,
+					   0,5,0,0,0,7,0,0,0,
+					   0,0,0,0,4,5,7,0,0,
+					   0,0,0,1,0,0,0,3,0,
+					   0,0,1,0,0,0,0,6,8,
+					   0,0,8,5,0,0,0,1,0,
+					   0,9,0,0,0,0,4,0,0};
+	for(int i=0;i<SIZE;i++)
+		for(int j=0;j<SIZE;j++)
+			board[i][j] = ques[i][j];	
 	change();
-	for(int i=0;i<9;i++)
-	{
-		for(int j=0;j<9;j++)
-		{
-			cout<<board[i][j]<<" ";
-		}
-		cout<<endl;
-	}
+	printOut(board);
 }
 
 void Sudoku::readIn()
