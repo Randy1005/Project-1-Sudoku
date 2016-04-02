@@ -116,15 +116,113 @@ bool Sudoku::isLegal(int board[SIZE][SIZE],int row,int col,int num)
 	return !usedInRow(board,row,num) && !usedInCol(board,col,num) && !usedInCell(board,row-row%3,col-col%3,num);
 }
 
+bool Sudoku::preChkRow(int board[SIZE][SIZE])
+{
+	int rowFlag[9]={0,0,0,0,0,0,0,0,0};
+	for(int i=0;i<SIZE;i++)
+	{	
+		for(int num=1;num<=9;num++)
+		{
+			if(board[0][i]==num)
+				rowFlag[num-1]++;
+			if(board[1][i]==num)
+				rowFlag[num-1]++;
+			if(board[2][i]==num)
+				rowFlag[num-1]++;
+			if(board[3][i]==num)
+				rowFlag[num-1]++;	
+			if(board[4][i]==num)
+				rowFlag[num-1]++;
+			if(board[5][i]==num)
+				rowFlag[num-1]++;
+			if(board[6][i]==num)
+				rowFlag[num-1]++;
+			if(board[7][i]==num)
+				rowFlag[num-1]++;
+			if(board[8][i]==num)
+				rowFlag[num-1]++;
+		}
+		for(int i=0;i<SIZE;i++)
+		{
+			if(rowFlag[i]>1)
+				return true;
+			else
+				rowFlag[i] = 0;
+		}
+
+	}
+	/*****/
+	//cout<<"rowFlag:"<<endl;
+	//for(int i=0;i<9;i++)
+		//cout<<rowFlag[i]<<" ";
+	//cout<<endl;
+	/*****/
+	return false;
+}
+
+bool Sudoku::preChkCol(int board[SIZE][SIZE])
+{
+	int colFlag[9]={0,0,0,0,0,0,0,0,0};
+	for(int i=0;i<SIZE;i++)
+	{	
+		for(int num=1;num<=9;num++)
+		{
+			if(board[i][0]==num)
+				colFlag[num-1]++;
+			if(board[i][1]==num)
+				colFlag[num-1]++;
+			if(board[i][2]==num)
+				colFlag[num-1]++;
+			if(board[i][3]==num)
+				colFlag[num-1]++;	
+			if(board[i][4]==num)
+				colFlag[num-1]++;
+			if(board[i][5]==num)
+				colFlag[num-1]++;
+			if(board[i][6]==num)
+				colFlag[num-1]++;
+			if(board[i][7]==num)
+				colFlag[num-1]++;
+			if(board[i][8]==num)
+				colFlag[num-1]++;
+		}
+		for(int i=0;i<SIZE;i++)
+		{
+			if(colFlag[i]>1)
+				return true;
+			else
+				colFlag[i] = 0;
+		}
+	}
+	/*****/
+	//cout<<"colFlag:"<<endl;
+	//for(int i=0;i<9;i++)
+		//cout<<colFlag[i]<<" ";
+	//cout<<endl;
+	/*****/
+	return false;
+}
+
+bool Sudoku::isSolvable(int board[SIZE][SIZE])
+{
+	if(preChkRow(board))
+		return false;
+	if(preChkCol(board))
+		return false;
+	return true;
+}
+
 void Sudoku::solve()
 {
+	if(!isSolvable(board))
+	{
+		cout<<"0"<<endl;
+		exit(1);
+	}
 	for(int i=0;i<SIZE;i++)
 		for(int j=0;j<SIZE;j++)
 			chk_board[i][j] = board[i][j];
-	/*****/
-	//cout<<"chk:(unassigned)"<<endl;
-	//printOut(chk_board);
-	/****/
+
 	int flag[SIZE][SIZE];
 	/*solve "board" and "chk_board"*/
 	if(Try(board) && Try_backward(chk_board))
@@ -141,20 +239,12 @@ void Sudoku::solve()
 			}
 		}
 	}
-	else if(!Try(board))
+	else
 	{
 		cout<<"0"<<endl;
 		exit(1);
 	}
-	/****/
-	//cout<<endl;
-	//cout<<"board:"<<endl;
-	//printOut(board);
-	//cout<<"chk:"<<endl;
-	//printOut(chk_board);
-	//cout<<"flag:"<<endl;
-	//printOut(flag);
-	/****/
+
 	/*loop check flag value*/
 	for(int i=0;i<SIZE;i++)
 	{
