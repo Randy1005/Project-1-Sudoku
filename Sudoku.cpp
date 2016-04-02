@@ -436,7 +436,7 @@ void Sudoku::rotate(int n)
 		{
 			for(int j=0;j<9;j++)
 			{	
-				rotate_board[i][j] = board[j][8-i]; 
+				rotate_board[j][8-i] = board[i][j]; 
 			}
 		}
 
@@ -486,7 +486,7 @@ void Sudoku::change()
 	changeNum(rand()%9+1,rand()%9+1);
 	changeRow(rand()%3,rand()%3);
 	changeCol(rand()%3,rand()%3);
-	rotate(rand()%100+1);
+	rotate(rand()%101);
 	flip(rand()%2);
 }
 void Sudoku::transform()
